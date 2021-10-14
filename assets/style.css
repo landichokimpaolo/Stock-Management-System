@@ -1,0 +1,13 @@
+table.list a {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+table.list tbody td:last-child {
+  text-align: center;
+}
+
+table.sell input[type='number'] {
+  width: 150px;
+}
