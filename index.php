@@ -7,7 +7,7 @@ $total = 0;
 $stmt = $pdo->query('SELECT * FROM products');
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $pdo->query('SELECT * FROM transactions');
+$stmt = $pdo->query('SELECT A.transaction_id, A.sell_price, A.sell_stock, A.product_id, B.name FROM transactions A LEFT JOIN products B ON A.product_id = B.product_id ORDER BY transaction_id');
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -60,6 +60,7 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <thead class="thead-light">
                     <tr>
                         <th>Transaction ID</th>
+                        <th>Product</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th></th>
@@ -72,13 +73,14 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <tr>
                         <td><?php echo $transaction['transaction_id']; ?></td>
+                        <td><?php echo $transaction['name']; ?></td>
                         <td><?php echo $transaction['sell_stock']; ?></td>
                         <td><?php echo $transaction['sell_price']; ?></td>
                         <td><?php echo number_format($subtotal, 2); ?></td>
                     </tr>
                 <?php endforeach; ?>
                 <tr>
-                    <th colspan="3" class="text-right">TOTAL SALE</th>
+                    <th colspan="4" class="text-right">TOTAL SALE</th>
                     <th><u><?php echo number_format($total, 2); ?></u></th>
                 </tr>
             </table>
